@@ -18,10 +18,16 @@
         <attr name="showFlag" format="boolean" />
         <attr name="showText" format="boolean" />
         <attr name="showIcon" format="boolean" />
+        <attr name="clickable" format="boolean" />
+
 
 
         <attr name="textSize" format="dimension" />
-        <attr name="fontColor" format="reference|color" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="dropDownIconColor" format="reference|color" />
+        <attr name="dropDownIconSize" format="dimension" />
+
+
 
         <attr name="textStyle" format="enum">
             <enum name="normal" value="0" />
@@ -29,9 +35,9 @@
             <enum name="italic" value="2" />
         </attr>
 
-        <attr name="typeOfCode" format="enum">
-            <enum name="name" value="2" />
-            <enum name="number" value="3" />
+        <attr name="codeType" format="enum">
+            <enum name="countryNameCode" value="2" />
+            <enum name="countryPhoneCode" value="3" />
         </attr>
 
         <attr name="defaultCountyNameCode" format="string" />

@@ -2,12 +2,10 @@ package com.github.adm.countrycodepicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.LocaleList;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
 
 
     // in hear custom CountryCodePicker component maneging
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     private void inIt(AttributeSet attrs) {
         mInflater = LayoutInflater.from(mContext);
         this.attrs = attrs;
@@ -82,7 +82,8 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
         showFlag(a.getBoolean(R.styleable.CountryCodePicker_showFlag, true));
         showText(a.getBoolean(R.styleable.CountryCodePicker_showText, true));
         showIcon(a.getBoolean(R.styleable.CountryCodePicker_showIcon, true));
-        typeOfFormat(a.getInteger(R.styleable.CountryCodePicker_typeOfCode, 1));
+
+        codeType(a.getInteger(R.styleable.CountryCodePicker_codeType, 1));
         setDefaultCountyNameCode(a.getString(R.styleable.CountryCodePicker_defaultCountyNameCode));
 
 
@@ -91,6 +92,10 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
 
         int typeface = a.getInteger(R.styleable.CountryCodePicker_textStyle, 0);
         setTextStyle(typeface);
+
+        setTextColor(a.getColor(R.styleable.CountryCodePicker_textColor, 0));
+        setDropDownIconColor(a.getColor(R.styleable.CountryCodePicker_dropDownIconColor, 0));
+        setDropDownIconSize(a.getDimension(R.styleable.CountryCodePicker_dropDownIconSize, 12));
 
 
         countryCodePicker.setOnClickListener(v -> {
@@ -121,7 +126,85 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
 
 
     // set all method =======================================
-    public void typeOfFormat(int index) {
+    @SuppressLint("ResourceAsColor")
+    private void setTextColor(int color) {
+
+        TypedArray a = mContext.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.CountryCodePicker,
+                0, 0);
+
+        try {
+
+
+            if (color != 0) {
+                pickerNameCode.setTextColor(a.getColor(R.styleable.CountryCodePicker_textColor, color));
+                pickerPhoneCode.setTextColor(a.getColor(R.styleable.CountryCodePicker_textColor, color));
+            }
+
+        } finally {
+            a.recycle();
+        }
+
+
+    }
+
+    public void setDropDownIconColor(int color) {
+
+        TypedArray a = mContext.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.CountryCodePicker,
+                0, 0);
+
+        try {
+
+            if (color != 0) {
+                pickerIcon.setColorFilter(a.getColor(R.styleable.CountryCodePicker_dropDownIconColor, color));
+            }
+
+        } finally {
+            a.recycle();
+        }
+    }
+
+    public void setDropDownIconSize(float dimension) {
+
+
+        if (dimension > 33.0f) {
+
+
+            int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    ((int) (dimension / 5f) + 12), getResources().getDisplayMetrics());
+            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    ((int) (dimension / 5f) + 6), getResources().getDisplayMetrics());
+
+            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width, height);
+            pickerIcon.setLayoutParams(parms);
+            pickerIcon.requestLayout();
+
+        }else if (dimension <= 33.0f) {
+
+
+
+            int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    ((int) (dimension / 2.8f) + (12/2.8f)), getResources().getDisplayMetrics());
+            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    ((int) (dimension / 2.8f) + (6/2.8f)), getResources().getDisplayMetrics());
+
+            LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width, height);
+            pickerIcon.setLayoutParams(parms);
+            pickerIcon.requestLayout();
+
+
+
+        }
+
+
+    }
+
+
+    public void codeType(int index) {
+
 
         if (index == 2) {
             pickerPhoneCode.setVisibility(GONE);
@@ -129,6 +212,7 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
         } else if (index == 3) {
             pickerPhoneCode.setVisibility(VISIBLE);
             pickerNameCode.setVisibility(GONE);
+            pickerNameCode.setPadding(0, 0, 8, 0);
 
         } else {
             pickerPhoneCode.setVisibility(VISIBLE);
@@ -260,6 +344,24 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
     public void addOnCountryStateChangeListener(OnCountryStateChangeListener listener) {
         this.listener = listener;
     }
+
+
+    public void setCountryName(String countryName) {
+        country.setCountryName(countryName);
+    }
+
+    public void setCountryNameCode(String countryNameCode) {
+        country.setCountryNameCode(countryNameCode);
+    }
+
+    public void setCountryPhoneCode(int countryPhoneCode) {
+        country.setCountryPhoneCode("" + countryPhoneCode);
+    }
+
+    public void setCountryFlagResId(int resId) {
+        country.setCountryFlag(resId);
+    }
+
 
     // addOnChildAttachStateChangeListener
     // addOnCountryStateChangeListener
@@ -1026,6 +1128,18 @@ public class CountryCodePicker extends RelativeLayout implements PickerDialog.On
 
     public String getCountryName() {
         return country.getCountryName();
+    }
+
+    public String getCountryNameCode() {
+        return country.getCountryNameCode();
+    }
+
+    public String getCountryPhoneCode() {
+        return country.getCountryPhoneCode();
+    }
+
+    public String getCountryPhoneCodeWithPlus() {
+        return "+" + country.getCountryPhoneCode();
     }
 
 
