@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+   android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:clickable="true"
+    android:background="?selectableItemBackground"
+    android:id="@+id/pickerI_linerL"
+    android:focusable="true"
+    android:baselineAligned="false">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="left|center"
+        tools:ignore="RtlHardcoded">
+
+        <ImageView
+            android:id="@+id/pickerI_imageV_country_flag"
+            android:layout_width="36dp"
+            android:layout_height="24dp"
+            android:clickable="false"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/flag_bangladesh"
+            tools:ignore="ContentDescription,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/pickerI_textV_countryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="Bangladesh"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,RtlHardcoded"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="12dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="center|right"
+        tools:ignore="RtlHardcoded">
+
+        <TextView
+            android:id="@+id/pickerI_textV_country_phone_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:clickable="false"
+            android:background="?selectableItemBackgroundBorderless"
+            android:text="+880"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="?selectableItemBackground">
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="16dp"
+        android:id="@+id/imageV_picker_flag"
+        android:src="@drawable/flag_bangladesh"
+        android:clickable="false"
+        android:layout_marginLeft="8dp"
+        tools:ignore="ContentDescription,RtlHardcoded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textV_picker_nameCode"
+        android:text="BD"
+        android:textSize="14sp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="1dp"
+        android:textAllCaps="true"
+        android:clickable="false"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textV_picker_phoneCode"
+        android:text="+880"
+        android:textSize="14sp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="1dp"
+        android:clickable="false"
+        tools:ignore="HardcodedText,RtlHardcoded"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="6dp"
+        android:id="@+id/imageV_picker_icon"
+        android:src="@drawable/ic_drop_down"
+        android:scaleType="fitXY"
+        android:clickable="false"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>
